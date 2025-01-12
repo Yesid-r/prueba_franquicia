@@ -35,8 +35,20 @@ implements FranquiciaRepository
 
     }
 
+
     @Override
-    public Mono<Franquicia> actualizarNombre(Franquicia franquicia) {
-        return this.save(franquicia);
+    public Mono<Boolean> existeById(String id) {
+        return this.repository.existsById(id);
+    }
+
+    @Override
+    public Mono<Void> actualizarNombre(String id, String nombre) {
+        return this.repository.findById(id)
+                .map(entity -> {
+                    entity.setNombre(nombre);
+                    return entity;
+                })
+                .flatMap(this.repository::save)
+                .then();
     }
 }

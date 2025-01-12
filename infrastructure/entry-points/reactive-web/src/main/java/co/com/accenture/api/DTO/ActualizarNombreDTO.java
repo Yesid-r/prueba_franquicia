@@ -3,6 +3,6 @@ package co.com.accenture.api.DTO;
 import lombok.Data;
 
 @Data
-public class ActualizarNombreProductoDTO {
+public class ActualizarNombreDTO {
     private String nombre;
 }

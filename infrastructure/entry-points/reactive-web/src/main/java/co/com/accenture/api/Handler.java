@@ -1,10 +1,11 @@
 package co.com.accenture.api;
 
-import co.com.accenture.api.DTO.ActualizarNombreProductoDTO;
+import co.com.accenture.api.DTO.ActualizarNombreDTO;
 import co.com.accenture.api.DTO.ActualizarStockDTO;
 import co.com.accenture.model.franquicia.Franquicia;
 import co.com.accenture.model.producto.Producto;
 import co.com.accenture.model.sucursal.Sucursal;
+import co.com.accenture.usecase.actualizarnombrefranquicia.ActualizarNombreFranquiciaUseCase;
 import co.com.accenture.usecase.actualizarnombreproducto.ActualizarNombreProductoUseCase;
 import co.com.accenture.usecase.actualizarstockproducto.ActualizarStockProductoUseCase;
 import co.com.accenture.usecase.eliminarproducto.EliminarProductoUseCase;
@@ -29,6 +30,7 @@ public class Handler {
     private final EliminarProductoUseCase eliminarProductoUseCase;
     private final ActualizarStockProductoUseCase actualizarStockProductoUseCase;
     private final ActualizarNombreProductoUseCase actualizarNombreProductoUseCase;
+    private final ActualizarNombreFranquiciaUseCase actualizarNombreFranquiciaUseCase;
 
     public Mono<ServerResponse> listenPOSTGuardarFranquiciaUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Franquicia.class)
@@ -71,15 +73,21 @@ public class Handler {
 
     public Mono<ServerResponse> listenPUTActualizarNombreProductoUseCase(ServerRequest serverRequest) {
         String idProducto = serverRequest.pathVariable("idProducto");
-        return serverRequest.bodyToMono(ActualizarNombreProductoDTO.class)
+        return serverRequest.bodyToMono(ActualizarNombreDTO.class)
                 .flatMap(producto -> actualizarNombreProductoUseCase.action(idProducto, producto.getNombre()))
                 .flatMap(producto -> ServerResponse.noContent().build())
                 .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
 
 
     }
+    public Mono<ServerResponse> listenPUTActualizarNombreFranquiciaUseCase(ServerRequest serverRequest) {
+        String idFranquicia = serverRequest.pathVariable("idFranquicia");
+        return serverRequest.bodyToMono(ActualizarNombreDTO.class)
+                .flatMap(franquicia -> actualizarNombreFranquiciaUseCase.action(idFranquicia, franquicia.getNombre()))
+                .flatMap(franquicia -> ServerResponse.noContent().build())
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
 
-
+    }
 
 
 
