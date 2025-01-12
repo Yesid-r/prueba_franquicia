@@ -4,8 +4,11 @@ import lombok.*;
 
 
 @Data
+@Builder
 public class Franquicia {
 
     private String id;
     private String nombre;
+
+
 }
