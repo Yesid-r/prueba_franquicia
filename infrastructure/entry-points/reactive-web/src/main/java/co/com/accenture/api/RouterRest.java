@@ -18,7 +18,8 @@ public class RouterRest {
                 .and(route(DELETE("/api/v1/functional/producto/{idProducto}"), handler::listenDELETEEliminarProductoUseCase))
                 .and(route(PUT("/api/v1/functional/producto/{idProducto}/stock"), handler::listenPUTActualizarStockProductoUseCase))
                 .and(route(PUT("/api/v1/functional/producto/{idProducto}/nombre"), handler::listenPUTActualizarNombreProductoUseCase))
-                .andRoute(PUT("/api/v1/functional/franquicia/{idFranquicia}/nombre"), handler::listenPUTActualizarNombreFranquiciaUseCase);
+                .andRoute(PUT("/api/v1/functional/franquicia/{idFranquicia}/nombre"), handler::listenPUTActualizarNombreFranquiciaUseCase)
+                .andRoute(PUT("/api/v1/functional/sucursal/{idSucursal}/nombre"), handler::listenPUTActualizarNombreSucursalUseCase);
 
     }
 }

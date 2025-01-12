@@ -5,4 +5,8 @@ import reactor.core.publisher.Mono;
 
 public interface SucursalRepository {
     Mono<Sucursal> guardarSucursal(Sucursal sucursal);
+
+    Mono<Boolean> existeById(String id);
+
+    Mono<Void> actualizarNombreSucursal(String id, String nombre);
 }

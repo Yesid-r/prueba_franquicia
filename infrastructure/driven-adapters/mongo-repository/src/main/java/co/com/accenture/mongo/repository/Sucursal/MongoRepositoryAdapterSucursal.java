@@ -27,4 +27,20 @@ implements SucursalRepository
     public Mono<Sucursal> guardarSucursal(Sucursal sucursal) {
         return this.save(sucursal);
     }
+
+    @Override
+    public Mono<Boolean> existeById(String id) {
+        return this.repository.existsById(id);
+    }
+
+    @Override
+    public Mono<Void> actualizarNombreSucursal(String id, String nombre) {
+        return this.repository.findById(id)
+                .map(entity -> {
+                    entity.setNombre(nombre);
+                    return entity;
+                })
+                .flatMap(this.repository::save)
+                .then();
+    }
 }

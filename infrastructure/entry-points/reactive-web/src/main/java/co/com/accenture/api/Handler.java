@@ -7,6 +7,7 @@ import co.com.accenture.model.producto.Producto;
 import co.com.accenture.model.sucursal.Sucursal;
 import co.com.accenture.usecase.actualizarnombrefranquicia.ActualizarNombreFranquiciaUseCase;
 import co.com.accenture.usecase.actualizarnombreproducto.ActualizarNombreProductoUseCase;
+import co.com.accenture.usecase.actualizarnombresucursal.ActualizarNombreSucursalUseCase;
 import co.com.accenture.usecase.actualizarstockproducto.ActualizarStockProductoUseCase;
 import co.com.accenture.usecase.eliminarproducto.EliminarProductoUseCase;
 import co.com.accenture.usecase.guardarfranquicia.GuardarFranquiciaUseCase;
@@ -31,6 +32,7 @@ public class Handler {
     private final ActualizarStockProductoUseCase actualizarStockProductoUseCase;
     private final ActualizarNombreProductoUseCase actualizarNombreProductoUseCase;
     private final ActualizarNombreFranquiciaUseCase actualizarNombreFranquiciaUseCase;
+    private final ActualizarNombreSucursalUseCase actualizarNombreSucursalUseCase;
 
     public Mono<ServerResponse> listenPOSTGuardarFranquiciaUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Franquicia.class)
@@ -85,6 +87,14 @@ public class Handler {
         return serverRequest.bodyToMono(ActualizarNombreDTO.class)
                 .flatMap(franquicia -> actualizarNombreFranquiciaUseCase.action(idFranquicia, franquicia.getNombre()))
                 .flatMap(franquicia -> ServerResponse.noContent().build())
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+
+    }
+    public Mono<ServerResponse> listenPUTActualizarNombreSucursalUseCase(ServerRequest serverRequest) {
+        String idSucursal = serverRequest.pathVariable("idSucursal");
+        return serverRequest.bodyToMono(ActualizarNombreDTO.class)
+                .flatMap(sucursal -> actualizarNombreSucursalUseCase.action(idSucursal, sucursal.getNombre()))
+                .flatMap(sucursal -> ServerResponse.noContent().build())
                 .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
 
     }
