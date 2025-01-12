@@ -16,7 +16,7 @@ public class GuardarSucursalUseCase {
                     sucursal1.setNombre(sucursal.getNombre());
                     return sucursal1;
                 })
-                .switchIfEmpty(Mono.error(new RuntimeException("No se pudo guardar la sucursal")))
-                ;
+                .switchIfEmpty(Mono.error(new RuntimeException("No se pudo guardar la sucursal")));
+
     }
 }
