@@ -5,4 +5,7 @@ import reactor.core.publisher.Mono;
 
 public interface ProductoRepository {
     Mono<Producto> guardarProducto(Producto producto);
+
+    Mono<Void> eliminarProducto(String id);
+    Mono<Boolean> existeById(String id);
 }

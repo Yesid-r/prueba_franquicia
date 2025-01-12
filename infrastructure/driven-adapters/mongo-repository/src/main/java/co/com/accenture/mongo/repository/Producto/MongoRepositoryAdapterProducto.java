@@ -30,4 +30,15 @@ implements ProductoRepository
     public Mono<Producto> guardarProducto(Producto producto) {
         return this.save(producto);
     }
+
+    @Override
+    public Mono<Void> eliminarProducto(String id) {
+        return this.repository.deleteById(id);
+    }
+
+    @Override
+    public Mono<Boolean> existeById(String id) {
+        return this.repository.existsById(id);
+    }
+
 }

@@ -3,25 +3,26 @@ package co.com.accenture.api;
 import co.com.accenture.model.franquicia.Franquicia;
 import co.com.accenture.model.producto.Producto;
 import co.com.accenture.model.sucursal.Sucursal;
+import co.com.accenture.usecase.eliminarproducto.EliminarProductoUseCase;
 import co.com.accenture.usecase.guardarfranquicia.GuardarFranquiciaUseCase;
 import co.com.accenture.usecase.guardarproducto.GuardarProductoUseCase;
 import co.com.accenture.usecase.guardarsucursal.GuardarSucursalUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
 public class Handler {
-//private  final UseCase useCase;
-//private  final UseCase2 useCase2;
-
 
     private final GuardarFranquiciaUseCase guardarFranquiciaUseCase;
     private final GuardarSucursalUseCase guardarSucursalUseCase;
     private final GuardarProductoUseCase guardarProductoUseCase;
+    private final EliminarProductoUseCase eliminarProductoUseCase;
 
     public Mono<ServerResponse> listenPOSTGuardarFranquiciaUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Franquicia.class)
@@ -47,13 +48,11 @@ public class Handler {
 
     }
 
-    public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {
-        // useCase2.logic();
-        return ServerResponse.ok().bodyValue("");
+    public Mono<ServerResponse> listenDELETEEliminarProductoUseCase(ServerRequest serverRequest) {
+        String idProducto = serverRequest.pathVariable("idProducto");
+        return eliminarProductoUseCase.action(idProducto)
+                .flatMap(producto -> ServerResponse.noContent().build())
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
     }
 
-    public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
-        // useCase.logic();
-        return ServerResponse.ok().bodyValue("");
-    }
 }
