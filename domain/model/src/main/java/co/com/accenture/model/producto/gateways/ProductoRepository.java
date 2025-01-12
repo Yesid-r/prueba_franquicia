@@ -14,4 +14,6 @@ public interface ProductoRepository {
 
 
     Mono<Producto> findById(String id);
+
+    Mono<Void> actualizarNombreProducto(String id, String nombre);
 }

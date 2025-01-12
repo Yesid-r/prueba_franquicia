@@ -52,5 +52,16 @@ implements ProductoRepository
                 .map(entity -> mapper.map(entity, Producto.class));
     }
 
+    @Override
+    public Mono<Void> actualizarNombreProducto(String id, String nombre) {
+        return this.repository.findById(id)
+                .map(entity -> {
+                    entity.setNombre(nombre);
+                    return entity;
+                })
+                .flatMap(this.repository::save)
+                .then();
+    }
+
 
 }
