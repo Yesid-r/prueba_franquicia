@@ -1,8 +1,10 @@
 package co.com.accenture.api;
 
+import co.com.accenture.api.DTO.ActualizarStockDTO;
 import co.com.accenture.model.franquicia.Franquicia;
 import co.com.accenture.model.producto.Producto;
 import co.com.accenture.model.sucursal.Sucursal;
+import co.com.accenture.usecase.actualizarstockproducto.ActualizarStockProductoUseCase;
 import co.com.accenture.usecase.eliminarproducto.EliminarProductoUseCase;
 import co.com.accenture.usecase.guardarfranquicia.GuardarFranquiciaUseCase;
 import co.com.accenture.usecase.guardarproducto.GuardarProductoUseCase;
@@ -23,6 +25,7 @@ public class Handler {
     private final GuardarSucursalUseCase guardarSucursalUseCase;
     private final GuardarProductoUseCase guardarProductoUseCase;
     private final EliminarProductoUseCase eliminarProductoUseCase;
+    private final ActualizarStockProductoUseCase actualizarStockProductoUseCase;
 
     public Mono<ServerResponse> listenPOSTGuardarFranquiciaUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Franquicia.class)
@@ -54,5 +57,15 @@ public class Handler {
                 .flatMap(producto -> ServerResponse.noContent().build())
                 .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
     }
+    public Mono<ServerResponse> listenPUTActualizarStockProductoUseCase(ServerRequest serverRequest) {
+        String idProducto = serverRequest.pathVariable("idProducto");
+        return serverRequest.bodyToMono(ActualizarStockDTO.class)
+                .flatMap(producto -> actualizarStockProductoUseCase.action(idProducto, producto.getCantidad()))
+                .flatMap(producto -> ServerResponse.ok().bodyValue(producto))
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+
+    }
+
+
 
 }

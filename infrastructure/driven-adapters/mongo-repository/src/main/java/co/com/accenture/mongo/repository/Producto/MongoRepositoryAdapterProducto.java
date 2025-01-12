@@ -41,4 +41,16 @@ implements ProductoRepository
         return this.repository.existsById(id);
     }
 
+    @Override
+    public Mono<Producto> actualizarStockProducto(String id, Integer cantidad) {
+        return this.repository.findById(id)
+                .map(entity -> {
+                    entity.setStock(cantidad);
+                    return entity;
+                })
+                .flatMap(this.repository::save)
+                .map(entity -> mapper.map(entity, Producto.class));
+    }
+
+
 }
