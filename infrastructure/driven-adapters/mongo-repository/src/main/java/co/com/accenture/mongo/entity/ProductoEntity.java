@@ -1,15 +1,18 @@
 package co.com.accenture.mongo.entity;
 
+
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "sucursales")
+@Document(collection = "productos")
 @Data
-public class SucursalEntity {
+public class ProductoEntity {
 
     @Id
     private String id;
     private String nombre;
-    private String franquiciaId;
+    private int stock;
+    private String sucursalId;
+
 }

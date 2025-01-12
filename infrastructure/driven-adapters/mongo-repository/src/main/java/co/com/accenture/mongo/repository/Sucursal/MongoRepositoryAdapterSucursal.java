@@ -1,11 +1,7 @@
-package co.com.accenture.mongo.repository;
+package co.com.accenture.mongo.repository.Sucursal;
 
-import co.com.accenture.model.franquicia.Franquicia;
-import co.com.accenture.model.franquicia.gateways.FranquiciaRepository;
 import co.com.accenture.model.sucursal.Sucursal;
 import co.com.accenture.model.sucursal.gateways.SucursalRepository;
-import co.com.accenture.mongo.MongoDBRepository;
-import co.com.accenture.mongo.entity.FranquiciaEntity;
 import co.com.accenture.mongo.entity.SucursalEntity;
 import co.com.accenture.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;

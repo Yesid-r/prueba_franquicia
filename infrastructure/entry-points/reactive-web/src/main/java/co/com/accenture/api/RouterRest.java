@@ -15,6 +15,7 @@ public class RouterRest {
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
         return route(POST("/api/v1/functional/franquicia"), handler::listenPOSTGuardarFranquiciaUseCase)
                 .and(route(POST("/api/v1/functional/sucursal"), handler::listenPOSTGuardarSucursalUseCase))
+                .and(route(POST("/api/v1/functional/producto"), handler::listenPOSTGuardarProductoUseCase))
                 .and(route(GET("/api/otherusercase/path"), handler::listenGETOtherUseCase));
     }
 }
