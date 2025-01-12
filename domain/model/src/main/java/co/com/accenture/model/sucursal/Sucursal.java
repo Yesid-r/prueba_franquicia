@@ -1,4 +1,4 @@
-package co.com.accenture.model.franquicia;
+package co.com.accenture.model.sucursal;
 import lombok.*;
 //import lombok.NoArgsConstructor;
 
@@ -7,10 +7,9 @@ import lombok.*;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Franquicia {
+public class Sucursal {
 
     private String id;
     private String nombre;
-
-
+    private String franquiciaId;
 }

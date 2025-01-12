@@ -14,7 +14,7 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
         return route(POST("/api/v1/functional/franquicia"), handler::listenPOSTGuardarFranquiciaUseCase)
-                .andRoute(POST("/api/usecase/otherpath"), handler::listenPOSTUseCase)
+                .and(route(POST("/api/v1/functional/sucursal"), handler::listenPOSTGuardarSucursalUseCase))
                 .and(route(GET("/api/otherusercase/path"), handler::listenGETOtherUseCase));
     }
 }
