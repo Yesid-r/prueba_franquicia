@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8083
 spring:
   application:
     name: "franquicia"
@@ -13,7 +13,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb://localhost:27017/test"
+      uri: "mongodb://localhost:27017/db_franquicia"
 management:
   endpoints:
     web:
@@ -24,4 +24,4 @@ management:
       probes:
         enabled: true
 cors:
-  allowed-origins: "http://localhost:4200,http://localhost:8080"
+  allowed-origins: "http://localhost:4200,http://localhost:8083, http://localhost:8080"

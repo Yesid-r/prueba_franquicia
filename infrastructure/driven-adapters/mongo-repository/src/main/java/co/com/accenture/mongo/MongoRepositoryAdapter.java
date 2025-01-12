@@ -1,12 +1,16 @@
 package co.com.accenture.mongo;
 
+import co.com.accenture.model.franquicia.Franquicia;
+import co.com.accenture.model.franquicia.gateways.FranquiciaRepository;
+import co.com.accenture.mongo.entity.FranquiciaEntity;
 import co.com.accenture.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 @Repository
-public class MongoRepositoryAdapter extends AdapterOperations<Object/* change for domain model */, Object/* change for adapter model */, String, MongoDBRepository>
-// implements ModelRepository from domain
+public class MongoRepositoryAdapter extends AdapterOperations<Franquicia, FranquiciaEntity, String, MongoDBRepository>
+implements FranquiciaRepository
 {
 
     public MongoRepositoryAdapter(MongoDBRepository repository, ObjectMapper mapper) {
@@ -15,6 +19,24 @@ public class MongoRepositoryAdapter extends AdapterOperations<Object/* change fo
          *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
          *  Or using mapper.map with the class of the object model
          */
-        super(repository, mapper, d -> mapper.map(d, Object.class/* change for domain model */));
+        super(repository, mapper, d -> mapper.map(d, Franquicia.class));
+    }
+
+
+    @Override
+    public Mono<Franquicia> guardarFranquicia(Franquicia franquicia) {
+        return this.save(franquicia);
+    }
+
+    @Override
+    public Mono<Franquicia> encontrarporId(String id) {
+
+        return this.repository.findById(id).map(this::toEntity);
+
+    }
+
+    @Override
+    public Mono<Franquicia> actualizarNombre(Franquicia franquicia) {
+        return this.save(franquicia);
     }
 }
