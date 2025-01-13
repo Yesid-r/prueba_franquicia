@@ -13,6 +13,7 @@ import co.com.accenture.usecase.eliminarproducto.EliminarProductoUseCase;
 import co.com.accenture.usecase.guardarfranquicia.GuardarFranquiciaUseCase;
 import co.com.accenture.usecase.guardarproducto.GuardarProductoUseCase;
 import co.com.accenture.usecase.guardarsucursal.GuardarSucursalUseCase;
+import co.com.accenture.usecase.obtenerproductoconmasstockporsucursal.ObtenerProductoConMasStockPorSucursalUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -33,6 +34,7 @@ public class Handler {
     private final ActualizarNombreProductoUseCase actualizarNombreProductoUseCase;
     private final ActualizarNombreFranquiciaUseCase actualizarNombreFranquiciaUseCase;
     private final ActualizarNombreSucursalUseCase actualizarNombreSucursalUseCase;
+    private final ObtenerProductoConMasStockPorSucursalUseCase obtenerProductoConMasStockPorSucursalUseCase;
 
     public Mono<ServerResponse> listenPOSTGuardarFranquiciaUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Franquicia.class)
@@ -95,6 +97,16 @@ public class Handler {
         return serverRequest.bodyToMono(ActualizarNombreDTO.class)
                 .flatMap(sucursal -> actualizarNombreSucursalUseCase.action(idSucursal, sucursal.getNombre()))
                 .flatMap(sucursal -> ServerResponse.noContent().build())
+                .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
+
+    }
+    public Mono<ServerResponse> listenGETObtenerProductoConMasStockPorSucursalUseCase(ServerRequest serverRequest) {
+
+        String franquiciaId = serverRequest.pathVariable("idFranquicia");
+
+        return obtenerProductoConMasStockPorSucursalUseCase.action(franquiciaId)
+                .collectList()
+                .flatMap(productos -> ServerResponse.ok().bodyValue(productos))
                 .onErrorResume(e -> ServerResponse.badRequest().bodyValue(e.getMessage()));
 
     }

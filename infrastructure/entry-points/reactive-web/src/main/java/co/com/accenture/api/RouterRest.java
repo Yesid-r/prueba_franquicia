@@ -19,7 +19,8 @@ public class RouterRest {
                 .and(route(PUT("/api/v1/functional/producto/{idProducto}/stock"), handler::listenPUTActualizarStockProductoUseCase))
                 .and(route(PUT("/api/v1/functional/producto/{idProducto}/nombre"), handler::listenPUTActualizarNombreProductoUseCase))
                 .andRoute(PUT("/api/v1/functional/franquicia/{idFranquicia}/nombre"), handler::listenPUTActualizarNombreFranquiciaUseCase)
-                .andRoute(PUT("/api/v1/functional/sucursal/{idSucursal}/nombre"), handler::listenPUTActualizarNombreSucursalUseCase);
+                .andRoute(PUT("/api/v1/functional/sucursal/{idSucursal}/nombre"), handler::listenPUTActualizarNombreSucursalUseCase)
+                .andRoute(GET("/api/v1/functional/franquicia/{idFranquicia}/mayor-stock"), handler::listenGETObtenerProductoConMasStockPorSucursalUseCase);
 
     }
 }

@@ -7,11 +7,13 @@ import lombok.*;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Producto {
+public class Producto  {
 
     private String id;
     private String nombre;
     private int stock;
     private String sucursalId;
     private String franquiciaId;
+
+
 }

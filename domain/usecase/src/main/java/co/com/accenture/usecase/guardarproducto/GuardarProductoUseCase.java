@@ -15,6 +15,7 @@ public class GuardarProductoUseCase {
 
     public Mono<Producto> action(Producto producto) {
         return sucursalRepository.findById(producto.getSucursalId())
+                .switchIfEmpty(Mono.error(new RuntimeException("No se encontro la sucursal")))
                 .flatMap(sucursal -> {
                     producto.setFranquiciaId(sucursal.getFranquiciaId());
                     return productoRepository.guardarProducto(producto);

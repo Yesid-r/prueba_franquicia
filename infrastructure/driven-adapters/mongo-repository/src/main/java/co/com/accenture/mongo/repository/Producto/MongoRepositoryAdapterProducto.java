@@ -9,6 +9,7 @@ import co.com.accenture.mongo.entity.SucursalEntity;
 import co.com.accenture.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -61,6 +62,12 @@ implements ProductoRepository
                 })
                 .flatMap(this.repository::save)
                 .then();
+    }
+
+    @Override
+    public Flux<Producto> findByFranquiciaId(String franquiciaId) {
+        return this.repository.findAllByFranquiciaId(franquiciaId)
+                .map(entity -> mapper.map(entity, Producto.class));
     }
 
 
