@@ -13,4 +13,5 @@ public class Producto {
     private String nombre;
     private int stock;
     private String sucursalId;
+    private String franquiciaId;
 }

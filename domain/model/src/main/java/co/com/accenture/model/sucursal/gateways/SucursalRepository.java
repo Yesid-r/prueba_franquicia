@@ -9,4 +9,6 @@ public interface SucursalRepository {
     Mono<Boolean> existeById(String id);
 
     Mono<Void> actualizarNombreSucursal(String id, String nombre);
+
+    Mono<Sucursal> findById(String sucursalId);
 }

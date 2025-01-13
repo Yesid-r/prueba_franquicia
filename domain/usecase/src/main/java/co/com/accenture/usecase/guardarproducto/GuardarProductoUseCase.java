@@ -2,6 +2,7 @@ package co.com.accenture.usecase.guardarproducto;
 
 import co.com.accenture.model.producto.Producto;
 import co.com.accenture.model.producto.gateways.ProductoRepository;
+import co.com.accenture.model.sucursal.gateways.SucursalRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -10,12 +11,18 @@ public class GuardarProductoUseCase {
 
     private final ProductoRepository productoRepository;
 
-    public Mono<Producto> action(Producto producto){
-       return productoRepository.guardarProducto(producto)
-               .map(producto1 -> {
-                   producto1.setNombre(producto.getNombre());
-                   return producto1;
-               })
-               .switchIfEmpty(Mono.error(new RuntimeException("No se pudo guardar el producto")));
+    private final SucursalRepository sucursalRepository;
+
+    public Mono<Producto> action(Producto producto) {
+        return sucursalRepository.findById(producto.getSucursalId())
+                .flatMap(sucursal -> {
+                    producto.setFranquiciaId(sucursal.getFranquiciaId());
+                    return productoRepository.guardarProducto(producto);
+                })
+                .map(producto1 -> {
+                    producto1.setNombre(producto.getNombre());
+                    return producto1;
+                })
+                .switchIfEmpty(Mono.error(new RuntimeException("No se pudo guardar el producto")));
     }
 }
