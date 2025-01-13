@@ -1,5 +1,6 @@
 package co.com.accenture.usecase.obtenerproductoconmasstockporsucursal;
 
+import co.com.accenture.model.DTO.ProductoDTO;
 import co.com.accenture.model.producto.Producto;
 import co.com.accenture.model.producto.gateways.ProductoRepository;
 import org.junit.jupiter.api.Test;
@@ -25,23 +26,22 @@ class ObtenerProductoConMasStockPorSucursalUseCaseTest {
     @Test
     void listar() {
         // Arrange
-        Producto producto1 = new Producto("1", "Producto1",10, "SucursalA", "Franquicia1"); // Producto con stock 10
-        Producto producto2 = new Producto("2", "Producto2",30, "SucursalA", "Franquicia1"); // Producto con stock 30
-        Producto producto3 = new Producto("3", "Producto3",20, "SucursalB", "Franquicia1"); // Producto con stock 20
-        Producto producto4 = new Producto("4", "Producto4",50, "SucursalB", "Franquicia1"); // Producto con stock 50
 
 
-
+        Producto producto1 = Producto.builder().nombre("Samsung").stock(10).sucursalId("SucursalA").build();
+        Producto producto2 = Producto.builder().nombre("Iphone").stock(50).sucursalId("SucursalB").build();
+        Producto producto3 = Producto.builder().nombre("Xiaomi").stock(30).sucursalId("SucursalA").build();
+        Producto producto4 = Producto.builder().nombre("Huawei").stock(20).sucursalId("SucursalB").build();
         when(productoRepository.findByFranquiciaId("Franquicia1"))
                 .thenReturn(Flux.just(producto1, producto2, producto3, producto4));
 
-        // act
-        Flux<Producto> resultado = useCase.action("Franquicia1");
+        // Act
+        Flux<ProductoDTO> resultado = useCase.action("Franquicia1");
 
         // Assert
         StepVerifier.create(resultado)
-                .expectNextMatches(producto -> producto.getSucursalId().equals("SucursalA") && producto.getStock() == 30)
-                .expectNextMatches(producto -> producto.getSucursalId().equals("SucursalB") && producto.getStock() == 50)
+                .expectNextMatches(producto -> producto.getSucursalNombre().equals("SucursalA") && producto.getStock() == 30)
+                .expectNextMatches(producto -> producto.getSucursalNombre().equals("SucursalB") && producto.getStock() == 50)
                 .expectComplete()
                 .verify();
     }

@@ -16,4 +16,5 @@ public class Producto  {
     private String franquiciaId;
 
 
+
 }
