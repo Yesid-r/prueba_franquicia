@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "2340298a-29a8-4a0d-b636-f50c39ea1ff5",
+		"name": "clean-architecture-pruebatecnica",
+		"description": "StartFragmentFranquicias  \nSe requiere construir un API para manejar una lista de franquicias. Una franquicia se compone por un nombre y un listado de sucursales y, a su vez, una sucursal está compuesta por un nombre y un listado de productos ofertados en la sucursal. Un producto se componente de un nombre y una cantidad de stock.\n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17760288"
+	},
+	"item": [
+		{
+			"name": "guardar franquicia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Tesla\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/franquicia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"franquicia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "guardar sucursal",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Toronto\",\r\n    \"franquiciaId\": \"67846e7f6470af4b785bc327\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/sucursal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"sucursal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "guardar producto en sucursal",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"CyberTruck2\",\r\n  \"stock\": 20,\r\n  \"sucursalId\":\"67846ead6470af4b785bc328\"   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/producto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar producto sucursal",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/producto/67846ecd6470af4b785bc32a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"producto",
+						"67846ecd6470af4b785bc32a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar stock de un producto",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cantidad\": 25\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/producto/67846ec16470af4b785bc329/stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"producto",
+						"67846ec16470af4b785bc329",
+						"stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar nombre de un producto",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Cyber Truck\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/producto/67846ec16470af4b785bc329/nombre",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"producto",
+						"67846ec16470af4b785bc329",
+						"nombre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar nombre de una franquicia",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Tesla by ElonMusk\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/franquicia/67846e7f6470af4b785bc327/nombre",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"franquicia",
+						"67846e7f6470af4b785bc327",
+						"nombre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actualizar nombre de una sucursal",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Texas\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/sucursal/67846ead6470af4b785bc328/nombre",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"sucursal",
+						"67846ead6470af4b785bc328",
+						"nombre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar productos con mayor stock por franquicia",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/functional/franquicia/67845ad346ab162fde6ca580/mayor-stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"functional",
+						"franquicia",
+						"67845ad346ab162fde6ca580",
+						"mayor-stock"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
